@@ -1,9 +1,8 @@
-Alexa Rosalsky 
-
+Alexa Rosalsky
 September 2015
 
 # Plotting Household Energy Usage
-This is the first project for Exploratory Data Analysis course. 
+This is the first project for Exploratory Data Analysis course.
 
 ## Introduction
 
@@ -42,68 +41,73 @@ web site</a>:
 
 ## Loading and processing the data
 
+```{r, echo = TRUE, eval = FALSE}
 
-```r
-pc <- read.table("~/Documents/R_Stuff/household_power_consumption.txt", sep = ";", header = TRUE, 
-                 stringsAsFactors = FALSE, colClasses  = c("character", "character", "numeric", "numeric", 
-                "numeric", "numeric", "numeric", "numeric", "numeric"), na.strings = "?")
+pc <- read.table("~/Documents/R_Stuff/household_power_consumption.txt", 
+                 sep = ";", header = TRUE, stringsAsFactors = FALSE, colClasses 
+                 = c("character","character","numeric","numeric","numeric",
+                     "numeric","numeric","numeric","numeric"), na.strings = "?")
 
 pc$Date <- as.Date(pc$Date, format = "%d/%m/%Y")
 pc <- pc[(pc$Date=="2007-02-01") | (pc$Date=="2007-02-02"),]
 
-pc <- transform(pc, datetime=as.POSIXct(paste(Date, Time), format = "%Y-%m-%d %H:%M:%S"))
+pc <- transform(pc, datetime=as.POSIXct(paste(Date, Time), format = 
+                                                "%Y-%m-%d %H:%M:%S"))
 ```
 
 
 ### Plot 1
-
-```r
+```{r, echo = TRUE, eval = FALSE}
 png("plot1.png", width = 480, height = 480)
-hist(pc$Global_active_power, xlab = "Global Active Power (kilowatts)", col = "red", main = "Global Active Power")
+hist(pc$Global_active_power, xlab = "Global Active Power (kilowatts)", 
+     col = "red", main = "Global Active Power")
 dev.off()
 ```
 ![plot1](plot1.png)
 
 
 ### Plot 2
-
-```r
+```{r, echo = TRUE, eval = FALSE}
 png("plot2.png", width = 480, height = 480)
-plot(pc$datetime, pc$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab = "")
+plot(pc$datetime, pc$Global_active_power, type = "l", ylab = 
+             "Global Active Power (kilowatts)", xlab = "")
 dev.off()
 ```
 ![plot2](plot2.png)
 
 ### Plot 3
-
-```r
+```{r, echo = TRUE, eval = FALSE}
 png("plot3.png", width = 480, height = 480)
-plot(pc$datetime, pc$Sub_metering_1, type = "l", ylab = "Energy sub metering", xlab = "")
+plot(pc$datetime, pc$Sub_metering_1, type = "l", ylab = "Energy sub metering",
+       xlab = "")
 lines(pc$datetime, pc$Sub_metering_2, col = "red")
 lines(pc$datetime, pc$Sub_metering_3, col = "blue")
-legend("topright", col=c("black","red","blue"), c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"), 
+legend("topright", col=c("black","red","blue"), 
+       c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"),
        lty=c(1,1), lwd=c(1,1))
 dev.off()
 ```
 ![plot3](plot3.png)
 
 ### Plot 4
-
-```r
+```{r, echo = TRUE, eval = FALSE}
 png("plot4.png", width = 480, height = 480)
 par(mfrow=c(2,2))
 
 # plot 1
-plot(pc$datetime, pc$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab = "")
+plot(pc$datetime, pc$Global_active_power, type = "l", ylab = 
+             "Global Active Power (kilowatts)", xlab = "")
 
 # plot 2
 plot(pc$datetime, pc$Voltage, type="l", xlab="datetime", ylab="Voltage")
 
 # plot 3
-plot(pc$datetime, pc$Sub_metering_1, type = "l", ylab = "Energy sub metering", xlab = "")
+plot(pc$datetime, pc$Sub_metering_1, type = "l", ylab = "Energy sub metering",
+     xlab = "")
 lines(pc$datetime, pc$Sub_metering_2, col = "red")
 lines(pc$datetime, pc$Sub_metering_3, col = "blue")
-legend("topright", col=c("black","red","blue"), c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"), 
+legend("topright", col=c("black","red","blue"), 
+       c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"),
        lty=c(1,1), lwd=c(1,1))
 
 # plot 4
@@ -112,3 +116,9 @@ plot(pc$datetime,pc$Global_reactive_power, type="l", xlab="datetime",
 dev.off()
 ```
 ![plot4](plot4.png) 
+
+```{r, include=FALSE}
+   # add this chunk to end of mycode.rmd
+   file.rename(from="scripts/README.rmd", 
+               to="README.md")
+```
