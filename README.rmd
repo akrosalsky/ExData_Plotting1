@@ -2,7 +2,7 @@ Alexa Rosalsky
 September 2015
 
 # Plotting Household Energy Usage
-This is the first project for Exploratory Data Analysis course.
+This is the first project for Exploratory Data Analysis course. 
 
 ## Introduction
 
